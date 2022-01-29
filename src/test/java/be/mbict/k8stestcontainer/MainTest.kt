@@ -4,6 +4,7 @@ import io.kubernetes.client.openapi.ApiClient
 import io.kubernetes.client.openapi.apis.CoreV1Api
 import io.kubernetes.client.util.Config
 import org.junit.jupiter.api.Test
+import org.testcontainers.containers.BindMode
 import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
 import org.testcontainers.k3s.K3sContainer
@@ -18,6 +19,7 @@ class MainTest {
 
         @Container
         val k3sContainer: K3sContainer = K3sContainer(DockerImageName.parse("rancher/k3s:v1.23.3-k3s1"))
+                .withClasspathResourceMapping("manifests", "/var/lib/rancher/k3s/server/manifests", BindMode.READ_ONLY)
     }
 
     @Test
